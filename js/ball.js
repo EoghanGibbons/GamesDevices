@@ -12,9 +12,7 @@ var Ball = function(pPosX, pPosY, pVelX, pVelY){
 
 Ball.prototype.update = function(){
 	
-	if (this.x >= width - 12 || this.x <= 10){
-		velX =  velX*-1;
-	}
+	
 	if ((this.y >= height -12) || (this.y <= 10)){
 		velY = velY*-1;
 	}
@@ -46,10 +44,18 @@ Ball.prototype.setPostion = function(newX, newY){
 }
 
 Ball.prototype.rebound = function(){
+	console.log("bounced on paddle");
 	velX =  velX*-1;
 
 	if (velX > 0)
 		this.incVelocity(1,0);
 	else
 		this.incVelocity(-1,0);
+}
+
+Ball.prototype.reset = function(resetX, resetY, resetXVelocity, resetYVelocity){
+	this.x = resetX; 
+	this.y = resetY; 
+	velX = resetXVelocity; 
+	velY = resetYVelocity;
 }

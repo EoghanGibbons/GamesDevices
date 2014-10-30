@@ -19,7 +19,7 @@ Paddle.prototype.drawSelf = function(){
 	
 	ctx.lineWidth = 2;
 	ctx.strokeStyle = '#00008B';
-	ctx.stroke();
+	ctx.strokeRect(this.x, this.y, this.width, this.height);
 }
 
 Paddle.prototype.movePaddle = function(incY){
