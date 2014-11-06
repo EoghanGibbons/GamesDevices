@@ -3,8 +3,8 @@ var height;
 var megaman = new Image();
 var megamanSlow = new Image();
 var imgOneFrameCounter = 0;
-var imgOneFrequency = 50;
-var imgTwoFrequency = 200;
+var imgOneFrequency = 50;	//how often to change frame in miliseconds
+var imgTwoFrequency = 200;	//how often to change frame in miliseconds
 var imgTwoFrameCounter = 0;
 var imgOneTimer = 0;
 var imgTwoTimer = 0;
@@ -20,7 +20,6 @@ Game.prototype.initCanvas=function () {
 }
 
 Game.prototype.initWorld = function(){
-	//megaman.addEventListener("load", function() {}, false);
 }
 
 Game.prototype.draw =function (){
