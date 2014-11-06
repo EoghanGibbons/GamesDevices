@@ -9,8 +9,15 @@ function main()
 
 	game.initWorld();			
 
-	//start game loop
-	game.gameLoop();
-	if(typeof game_loop != "undefined") clearInterval(game_loop);
-		game_loop = setInterval(game.gameLoop, 16);
+	var lastUpdate = Date.now();
+	var myInterval = setInterval(tick, 0);
+
+	function tick() {
+    	var now = Date.now();
+    	var dt = now - lastUpdate;
+    	lastUpdate = now;
+
+    	game.update(dt);
+    	game.draw();
+	}
 }

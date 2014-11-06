@@ -1,7 +1,13 @@
-var ball;
-var paddle;
 var width;
 var height;
+var megaman = new Image();
+var megamanSlow = new Image();
+var imgOneFrameCounter = 0;
+var imgOneFrequency = 50;
+var imgTwoFrequency = 200;
+var imgTwoFrameCounter = 0;
+var imgOneTimer = 0;
+var imgTwoTimer = 0;
 function Game (){
 }
 
@@ -10,44 +16,42 @@ Game.prototype.initCanvas=function () {
 	ctx = canvas.getContext("2d");
 	width = canvas.getAttribute("width");
 	height = canvas.getAttribute("height");
+
 }
 
 Game.prototype.initWorld = function(){
-	ball = new Ball(225, 225, -1, 1 );
-	paddle = new Paddle(10, 200);
-	playerTwoPaddle = new Paddle(420,200);
-}
-
-Game.prototype.gameLoop = function () {
-	game.update();
-	game.draw();
-	ball.update();
-	paddle.update();
-	playerTwoPaddle.update();
+	//megaman.addEventListener("load", function() {}, false);
 }
 
 Game.prototype.draw =function (){
 	ctx.fillStyle = "white";
 	ctx.fillRect(0, 0, width, height);
-	ctx.strokeStyle = "black";
-	ctx.strokeRect(0, 0, width, height);
+	ctx.drawImage(megaman, 100, 100);
+	ctx.drawImage(megamanSlow, 150, 100);
 }
 
-Game.prototype.update = function(){
-	if(KeyController.isKeyDown(Key.W)){
-		paddle.movePaddle(-5);
-	}
-	if(KeyController.isKeyDown(Key.S)){
-		paddle.movePaddle(5);
-	}
-	if(KeyController.isKeyDown(Key.UP)){
-		playerTwoPaddle.movePaddle(-5);
-	}
-	if(KeyController.isKeyDown(Key.DOWN)){
-		playerTwoPaddle.movePaddle(5);
-	}
-	if ((ball.x -10 <= paddle.x+paddle.width) || (ball.x + 10 >= playerTwoPaddle.x) && 
-		(((ball.y < paddle.y + paddle.height) || (ball.y < paddle.y + playerTwoPaddle.height)) && ((ball.y > paddle.y) || (ball.y > playerTwoPaddle.y)))) {
-		ball.rebound();
-	}
+Game.prototype.update = function(elsapsedTime){
+
+	if (imgOneTimer > imgOneFrequency){
+        imgOneTimer = 0;
+        imgOneFrameCounter++;
+        if (imgOneFrameCounter > 7) 
+        	imgOneFrameCounter = 0;
+    }
+    else{
+        imgOneTimer += elsapsedTime;
+    }
+
+    if (imgTwoTimer > imgTwoFrequency){
+        imgTwoTimer = 0;
+        imgTwoFrameCounter++;
+        if (imgTwoFrameCounter > 7) 
+        	imgTwoFrameCounter = 0;
+    } 
+    else{
+        imgTwoTimer += elsapsedTime;
+    }
+	
+	megaman.src = 'assets/' + imgOneFrameCounter.toString() + '.png';
+	megamanSlow.src = 'assets/' + imgTwoFrameCounter.toString() + '.png';
 }
